@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 560px) {
+  .container {
+    width: 560px;
+  }
+} ;

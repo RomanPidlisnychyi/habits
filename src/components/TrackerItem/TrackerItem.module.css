@@ -1,0 +1,29 @@
+.item {
+  height: 60px;
+  padding: 0 15px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  width: 50%;
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden;
+  padding: 5px;
+  text-overflow: ellipsis;
+}
+
+.wrap {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.active {
+  background-color: #fdfdf6;
+  color: #3faf6c;
+}
