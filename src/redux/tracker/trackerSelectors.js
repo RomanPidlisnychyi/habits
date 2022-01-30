@@ -1,6 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
-import getTimeFormat from '../../common/getTimeFormat';
 
 const getTrackers = state => state.trackers;
 const getCurrentDate = state => state.currentDate;
@@ -11,8 +10,9 @@ const getCurrentFormatTimeById = createSelector(
     const tracker = trackers.find(tracker => tracker.id === trackerId);
     const current = Math.round((dayjs().valueOf() - tracker.start) / 1000 / 60 / 60 / 24);
     const stop = Math.round((tracker.stop - tracker.start) / 1000 / 60 / 60 / 24);
+    const percentages = (dayjs().valueOf() - tracker.start) / (tracker.stop - tracker.start) * 100;
 
-    return { ...tracker, current, stop };
+    return { ...tracker, current, stop, percentages: percentages.toFixed(2) };
   }
 );
 

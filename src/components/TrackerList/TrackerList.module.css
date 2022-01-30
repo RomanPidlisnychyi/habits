@@ -4,10 +4,6 @@
   overflow: scroll;
   scrollbar-width: 3px;
 }
-.listContainer::-moz-scrollbar {
-  scrollbar-color: #458245 #714826; /* «цвет ползунка» «цвет полосы скроллбара» */
-  scrollbar-width: 5px; /* толщина */
-}
 
 .listContainer::-webkit-scrollbar {
   width: 5px; /* ширина для вертикального скролла */

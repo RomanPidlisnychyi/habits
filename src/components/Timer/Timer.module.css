@@ -1,5 +1,19 @@
-.span {
+.wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 90%;
   font-size: 13px;
   font-weight: 700;
-  margin-right: 25px;
+  margin: 25px 25px 0 0;
+}
+
+.span {
+  padding: 0 5px;
+}
+
+.spanAbs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }

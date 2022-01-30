@@ -5,7 +5,7 @@ import styles from './TrackerItem.module.css';
 export default function TrackerItem({ tracker }) {
   const { stop } = tracker;
 
-  const { item, active, wrap, name, current } = styles;
+  const { item, active, wrap, name } = styles;
 
   return (
     <li className={stop ? item : `${item} ${active}`}>

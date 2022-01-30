@@ -1,24 +1,14 @@
-.start {
+.remove {
   width: 25px;
   height: 25px;
   border: none;
   outline: none;
   border-radius: 50%;
-  background: url('../../images/play-circle.svg') center/cover no-repeat;
-}
-
-.pause {
-  composes: start;
-  background-image: url('../../images/pause-circle.svg');
-}
-
-.remove {
-  composes: start;
-  background-image: url('../../images/minus-circle.svg');
+  background: url('../../images/minus-circle.svg') center/cover no-repeat;
 }
 
 .wrap {
-  width: 60px;
+  width: 30px;
   display: flex;
   justify-content: space-between;
 }
