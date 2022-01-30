@@ -60,5 +60,5 @@
 
 .button:disabled {
   cursor: initial;
-  background-color: #3faf6c;
+  background-color: grey;
 }

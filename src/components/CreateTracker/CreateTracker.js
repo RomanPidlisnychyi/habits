@@ -8,15 +8,9 @@ export default function CreateTracker() {
 
   const [name, setName] = useState('');
   const [numberOfDays, setNumberOfDays] = useState('');
-  const [isInvalidDayInput, setIsInvalidDayInput] = useState(false);
 
   const handlerSubmit = e => {
     e.preventDefault();
-
-    if(!(parseInt(numberOfDays) + 1)) {
-      setIsInvalidDayInput(true);
-      return;
-    }
 
     dispatch(trackerActions.set({ name, numberOfDays }));
     setName('');
@@ -26,7 +20,7 @@ export default function CreateTracker() {
     <form className={styles.form} onSubmit={handlerSubmit}>
         <label className={styles.label}>
           <input
-            className={styles.input}
+            className={name ? styles.input : `${styles.input} ${styles.invalid}`}
             type="text"
             placeholder="Enter habit name"
             value={name}
@@ -35,19 +29,18 @@ export default function CreateTracker() {
         </label>
         <label className={styles.labelDay}>
           <input
-            className={isInvalidDayInput ? `${styles.inputDay} ${styles.invalid}` : styles.inputDay}
+            className={numberOfDays ? styles.inputDay : `${styles.inputDay} ${styles.invalid}`}
             type="text"
             placeholder="How days do you need?"
             value={numberOfDays}
             onChange={e => {
-              if(isInvalidDayInput) {
-                setIsInvalidDayInput(false);
+              if((parseInt(e.target.value)) || e.target.value === '') {
+                setNumberOfDays(e.target.value);
               }
-              setNumberOfDays(e.target.value);
             }}
           />
         </label>
-      <button className={styles.button} type="submit" disabled={!name} />
+      <button className={styles.button} type="submit" disabled={!name || !numberOfDays } />
     </form>
   );
 }
