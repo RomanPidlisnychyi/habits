@@ -8,7 +8,15 @@ export default function Timer({ trackerId }) {
     trackerSelectors.getCurrentFormatTimeById(state, trackerId)
   );
   return (
-    <div className={styles.wrap}>
+    <div style={{
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'flex-end',
+      width: '90%',
+      fontSize: '13px',
+      fontWeight: '700',
+      margin: '25px 25px 0 0',
+    }}>
       <span className={styles.span}>0</span>
       <Slider defaultValue={current} aria-label="default" valueLabelDisplay="on" disabled />
       <span className={styles.span}>{stop}(d)</span>
