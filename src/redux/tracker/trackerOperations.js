@@ -1,6 +1,6 @@
 import { trackerActions } from '.';
 
-const setCurrentDate = () => dispatch => {
+const setCurrentDate = () => (dispatch) => {
   setInterval(() => {
     dispatch(trackerActions.setCurrentDate(Date.now()));
   }, 1000);

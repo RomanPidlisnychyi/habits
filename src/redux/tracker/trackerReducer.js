@@ -5,8 +5,8 @@ import dayjs from 'dayjs';
 import { trackerActions } from '.';
 
 const localState = localStorage.getItem('habits');
-const initialCurrent = dayjs().valueOf();
 const initialState = localState ? JSON.parse(localState) : [];
+const initialCurrent = dayjs().valueOf();
 
 const setTracker = (state, { payload }) => {
   const start = dayjs();
@@ -17,6 +17,8 @@ const setTracker = (state, { payload }) => {
     id: uuidv4(),
     start: start.valueOf(),
     stop: stop.valueOf(),
+    failureAt: null,
+    archive: [],
   };
 
   const newState = [tracker, ...state];
@@ -27,7 +29,7 @@ const setTracker = (state, { payload }) => {
 };
 
 const startTracker = (state, { payload: trackerId }) => {
-  const newState = state.map(tracker => {
+  const newState = state.map((tracker) => {
     if (tracker.id === trackerId) {
       const timeTracked = tracker.stop - tracker.start;
       tracker = { ...tracker, start: dayjs().get('milliseconds') - timeTracked, stop: null };
@@ -41,7 +43,7 @@ const startTracker = (state, { payload: trackerId }) => {
 };
 
 const stopTracker = (state, { payload: trackerId }) => {
-  const newState = state.map(tracker => {
+  const newState = state.map((tracker) => {
     if (tracker.id === trackerId) {
       tracker = { ...tracker, stop: dayjs().get('milliseconds') };
     }
@@ -54,11 +56,33 @@ const stopTracker = (state, { payload: trackerId }) => {
 };
 
 const removeTracker = (state, { payload: trackerId }) => {
-  const newState = state.filter(tracker => tracker.id !== trackerId);
+  const newState = state.filter((tracker) => tracker.id !== trackerId);
 
   newState.length > 0
     ? localStorage.setItem('habits', JSON.stringify(newState))
     : localStorage.removeItem('habits');
+
+  return newState;
+};
+
+const resetTracker = (state, { payload: trackerId }) => {
+  const newState = state.map((tracker) => {
+    if (tracker.id === trackerId) {
+      const currentTimestamp = dayjs().valueOf();
+      const habitRange = tracker.stop - tracker.start;
+      const stop = currentTimestamp + habitRange;
+      return {
+        ...tracker,
+        id: uuidv4(),
+        start: currentTimestamp,
+        stop,
+        archive: [{ ...tracker, failureAt: currentTimestamp }, ...tracker.archive],
+      };
+    }
+    return tracker;
+  });
+
+  localStorage.setItem('habits', JSON.stringify(newState));
 
   return newState;
 };
@@ -68,6 +92,7 @@ const trackers = createReducer(initialState, {
   [trackerActions.start]: startTracker,
   [trackerActions.stop]: stopTracker,
   [trackerActions.remove]: removeTracker,
+  [trackerActions.reset()]: resetTracker,
 });
 
 const currentDate = createReducer(initialCurrent, {
