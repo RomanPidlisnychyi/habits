@@ -20,7 +20,7 @@ const setCurrentDate = () => {
     setInterval(() => {
       state = { ...state, currentTimestamp: dayjs().valueOf(), isInit: true };
       subject.next(state);
-    }, 1000);
+    }, 5000);
     // console.log('Hello');
     // interval(1000).pipe(
     //   takeUntil((res) => {
@@ -50,6 +50,7 @@ const setTracker = ({ name, numberOfDays }) => {
     start: start.valueOf(),
     stop: stop.valueOf(),
     failureAt: null,
+    finishedAt: null,
     archive: [],
   };
 

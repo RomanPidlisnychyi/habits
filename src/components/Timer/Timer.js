@@ -17,7 +17,6 @@ export default function Timer({ trackerId }) {
   }, []);
 
   const { stop, current, percentages } = state;
-  //!TODO make custom slider
   return (
     <div
       style={{
@@ -31,7 +30,15 @@ export default function Timer({ trackerId }) {
       }}
     >
       <span className={styles.span}>0</span>
-      <Slider defaultValue={current} aria-label="default" valueLabelDisplay="on" disabled />
+      <Slider
+        value={current}
+        step={1}
+        min={0}
+        max={stop}
+        aria-label="default"
+        valueLabelDisplay="on"
+        disabled
+      />
       <span className={styles.span}>{stop}(d)</span>
       <span className={styles.spanAbs}>{percentages}%</span>
     </div>

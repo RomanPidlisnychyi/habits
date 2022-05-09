@@ -1,10 +1,28 @@
 import { useState } from 'react';
 import styles from './CreateTracker.module.css';
-import { habitsStore } from '../../store';
+import { habitsStore, getHabitByName } from '../../store';
 
 export default function CreateTracker() {
   const [name, setName] = useState('');
   const [numberOfDays, setNumberOfDays] = useState('');
+  const [isNameValid, setIsNameValid] = useState(false);
+
+  const handlerSetName = (e) => {
+    const name = e.target.value;
+    const habit = getHabitByName(habitsStore.state, name);
+    setIsNameValid(!!!habit);
+    setName(e.target.value);
+  };
+
+  const handlerSetNumberOfDays = (e) => {
+    let intValue = parseInt(e.target.value);
+    if (intValue || e.target.value === '') {
+      if (intValue && intValue < 0) {
+        intValue = -intValue;
+      }
+      setNumberOfDays(`${intValue}`);
+    }
+  };
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +39,7 @@ export default function CreateTracker() {
           type="text"
           placeholder="Enter habit name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handlerSetName}
         />
       </label>
       <label className={styles.labelDay}>
@@ -30,14 +48,14 @@ export default function CreateTracker() {
           type="text"
           placeholder="How days do you need?"
           value={numberOfDays}
-          onChange={(e) => {
-            if (parseInt(e.target.value) || e.target.value === '') {
-              setNumberOfDays(e.target.value);
-            }
-          }}
+          onChange={handlerSetNumberOfDays}
         />
       </label>
-      <button className={styles.button} type="submit" disabled={!name || !numberOfDays} />
+      <button
+        className={styles.button}
+        type="submit"
+        disabled={!name || !numberOfDays || !isNameValid}
+      />
     </form>
   );
 }
