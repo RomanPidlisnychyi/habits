@@ -31,13 +31,24 @@ export default function CreateTracker() {
     setName('');
     setNumberOfDays('');
   };
+
+  let inputClassName = styles.input;
+  if (name) {
+    if (!isNameValid) {
+      inputClassName = styles.existingName;
+    }
+  } else {
+    inputClassName = `${styles.input} ${styles.invalid}`;
+  }
+
   return (
     <form className={styles.form} onSubmit={handlerSubmit}>
       <label className={styles.label}>
         <input
-          className={name ? styles.input : `${styles.input} ${styles.invalid}`}
+          className={inputClassName}
           type="text"
           placeholder="Enter habit name"
+          data-name={'Привіт'}
           value={name}
           onChange={handlerSetName}
         />

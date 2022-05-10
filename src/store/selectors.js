@@ -4,7 +4,6 @@ export const getHabits = (state) => state.habits;
 export const getCurrentDate = (state) => state.currentTimestamp;
 
 export const getHabitByName = (state, name) => {
-  console.log('state', state);
   const habits = getHabits(state);
   return habits.find((habit) => habit.name === name);
 };

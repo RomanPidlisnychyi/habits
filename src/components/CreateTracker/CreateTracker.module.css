@@ -15,6 +15,7 @@
 }
 
 .input {
+  position: relative;
   border-bottom-left-radius: 25px;
   border-top-left-radius: 25px;
   padding-left: 20px;
@@ -25,15 +26,38 @@
   outline: none;
 }
 
+.input:hover {
+  cursor: auto;
+}
+
 .inputDay {
+  composes: input;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
-  padding-left: 20px;
-  transform: translateX(-20px);
-  border: 1px solid grey;
-  width: 100%;
-  height: 44px;
-  outline: none;
+}
+
+.existingName {
+  composes: input;
+  color: red;
+}
+
+.input:hover:after {
+  /*content: attr(data name);*/
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: rgba(5,13,156,.55);
+  color: #fff;
+  text-align: center;
+  font-family: cursive;
+  font-size: 14px;
+  padding: 3px 0;
+  width: 100px;
+  height: 100px;
+  z-index: 10;
 }
 
 .invalid {
