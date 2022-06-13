@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 
 export const getHabits = (state) => state.habits;
 export const getCurrentDate = (state) => state.currentTimestamp;
+export const getModal = (state) => state.modal;
 
 export const getHabitByName = (state, name) => {
   const habits = getHabits(state);

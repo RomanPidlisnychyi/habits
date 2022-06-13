@@ -7,9 +7,14 @@ const subject = new Subject();
 const localState = localStorage.getItem('habits');
 const initialHabits = localState ? JSON.parse(localState) : [];
 const initialCurrent = dayjs().valueOf();
+const initModal = {
+  isActive: false,
+  habitId: null,
+};
 const initialState = {
   habits: initialHabits,
   currentTimestamp: initialCurrent,
+  modal: initModal,
   isInit: false,
 };
 
@@ -131,6 +136,14 @@ export const habitsStore = {
   stopTracker,
   removeTracker,
   resetTracker,
+  setModel: (data) => {
+    state = { ...state, modal: data };
+    subject.next(state);
+  },
+  resetModel: () => {
+    state = { ...state, modal: initModal };
+    subject.next(state);
+  },
   initialState,
   state,
 };

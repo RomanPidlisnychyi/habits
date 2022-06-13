@@ -1,0 +1,14 @@
+.remove {
+  width: 25px;
+  height: 25px;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background: url('../../images/minus-circle.svg') center/cover no-repeat;
+}
+
+.wrap {
+  width: 30px;
+  display: flex;
+  justify-content: space-between;
+}

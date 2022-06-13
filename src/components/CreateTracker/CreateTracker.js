@@ -5,7 +5,7 @@ import { habitsStore, getHabitByName } from '../../store';
 export default function CreateTracker() {
   const [name, setName] = useState('');
   const [numberOfDays, setNumberOfDays] = useState('');
-  const [isNameValid, setIsNameValid] = useState(false);
+  const [isNameValid, setIsNameValid] = useState(true);
 
   const handlerSetName = (e) => {
     const name = e.target.value;
@@ -42,31 +42,33 @@ export default function CreateTracker() {
   }
 
   return (
-    <form className={styles.form} onSubmit={handlerSubmit}>
-      <label className={styles.label}>
-        <input
-          className={inputClassName}
-          type="text"
-          placeholder="Enter habit name"
-          data-name={'Привіт'}
-          value={name}
-          onChange={handlerSetName}
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={handlerSubmit}>
+        <label className={styles.label}>
+          <input
+            className={inputClassName}
+            type="text"
+            placeholder="Enter habit name"
+            value={name}
+            onChange={handlerSetName}
+          />
+        </label>
+        <label className={styles.labelDay}>
+          <input
+            className={numberOfDays ? styles.inputDay : `${styles.inputDay} ${styles.invalid}`}
+            type="text"
+            placeholder="How days do you need?"
+            value={numberOfDays}
+            onChange={handlerSetNumberOfDays}
+          />
+        </label>
+        <button
+          className={styles.button}
+          type="submit"
+          disabled={!name || !numberOfDays || !isNameValid}
         />
-      </label>
-      <label className={styles.labelDay}>
-        <input
-          className={numberOfDays ? styles.inputDay : `${styles.inputDay} ${styles.invalid}`}
-          type="text"
-          placeholder="How days do you need?"
-          value={numberOfDays}
-          onChange={handlerSetNumberOfDays}
-        />
-      </label>
-      <button
-        className={styles.button}
-        type="submit"
-        disabled={!name || !numberOfDays || !isNameValid}
-      />
-    </form>
+      </form>
+      {!isNameValid && <span className={styles.message}>This name already exist in the list</span>}
+    </div>
   );
 }

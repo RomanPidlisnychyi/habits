@@ -1,7 +1,6 @@
 .form {
   display: flex;
   justify-content: center;
-  width: 90%;
   position: relative;
   margin-bottom: 25px;
 }
@@ -43,23 +42,6 @@
   color: red;
 }
 
-.input:hover:after {
-  /*content: attr(data name);*/
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  background: rgba(5,13,156,.55);
-  color: #fff;
-  text-align: center;
-  font-family: cursive;
-  font-size: 14px;
-  padding: 3px 0;
-  width: 100px;
-  height: 100px;
-  z-index: 10;
-}
-
 .invalid {
   border: 1px solid red;
 }
@@ -85,4 +67,16 @@
 .button:disabled {
   cursor: initial;
   background-color: grey;
+}
+
+.container {
+  position: relative;
+  width: 90%;
+}
+
+.message {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: red;
 }
