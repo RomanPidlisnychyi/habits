@@ -1,24 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import TrackerItem from '../TrackerItem/TrackerItem';
 import styles from './TrackerList.module.css';
-import { habitsStore, getHabits } from '../../store';
+import { habitsState } from '../../recoil';
 
 export default function TrackerList() {
-  const [trackers, setTrackers] = useState(habitsStore.state.habits);
-  const handleState = (state) => {
-    const habits = getHabits(state);
-    setTrackers(habits);
-  };
-  useEffect(() => {
-    habitsStore.subscribe(handleState);
-  }, []);
+  const [habits] = useRecoilState(habitsState);
 
   return (
     <div className={styles.listContainer}>
-      {trackers && trackers.length > 0 ? (
+      {habits?.length > 0 ? (
         <ul className={styles.list}>
-          {trackers.map((tracker) => (
-            <TrackerItem key={tracker.id} tracker={tracker} />
+          {habits.map((habit) => (
+            <TrackerItem key={habit.id} tracker={habit} />
           ))}
         </ul>
       ) : (

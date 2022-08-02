@@ -1,22 +1,23 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styles from './CreateTracker.module.css';
-import { habitsStore, getHabitByName } from '../../store';
+import { habitsState, createHabit } from '../../recoil';
 
 export default function CreateTracker() {
+  const [habits, setHabits] = useRecoilState(habitsState);
   const [name, setName] = useState('');
   const [numberOfDays, setNumberOfDays] = useState('');
   const [isNameValid, setIsNameValid] = useState(true);
 
-  const handlerSetName = (e) => {
-    const name = e.target.value;
-    const habit = getHabitByName(habitsStore.state, name);
-    setIsNameValid(!!!habit);
-    setName(e.target.value);
+  const handlerSetName = ({ target: { value } }) => {
+    const isUniqueHabitName = habits.some((habit) => habit.name === value);
+    setIsNameValid(!isUniqueHabitName);
+    setName(value);
   };
 
-  const handlerSetNumberOfDays = (e) => {
-    let intValue = parseInt(e.target.value);
-    if (intValue || e.target.value === '') {
+  const handlerSetNumberOfDays = ({ target: { value } }) => {
+    let intValue = parseInt(value);
+    if (intValue || value === '') {
       if (intValue && intValue < 0) {
         intValue = -intValue;
       }
@@ -26,8 +27,12 @@ export default function CreateTracker() {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-
-    habitsStore.setTracker({ name, numberOfDays });
+    const habit = createHabit({ name, numberOfDays });
+    setHabits((habits) => {
+      const newState = [habit, ...habits];
+      localStorage.setItem('habits', JSON.stringify(newState));
+      return newState;
+    });
     setName('');
     setNumberOfDays('');
   };

@@ -1,22 +1,10 @@
-import { useState, useEffect } from 'react';
 import { Slider } from '@material-ui/core';
+import { useRecoilValue } from 'recoil';
 import styles from './Timer.module.css';
-import { habitsStore, getCurrentFormatTimeById } from '../../store';
+import { currentFormatTimeByIdState } from '../../recoil';
 
 export default function Timer({ trackerId }) {
-  const [state, setState] = useState({ stop: 0, current: 0, percentages: '0' });
-
-  const handleState = (state) => {
-    const { stop, current, percentages } = getCurrentFormatTimeById(state, trackerId);
-    setState({ stop, current, percentages });
-  };
-  useEffect(() => {
-    const { stop, current, percentages } = getCurrentFormatTimeById(habitsStore.state, trackerId);
-    setState({ stop, current, percentages });
-    habitsStore.subscribe(handleState);
-  }, []);
-
-  const { stop, current, percentages } = state;
+  const { stop, current, percentages } = useRecoilValue(currentFormatTimeByIdState(trackerId));
   return (
     <div
       style={{

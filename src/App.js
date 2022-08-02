@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { RecoilRoot } from 'recoil';
 import Layout from './components/Layout/Layout';
 import TrackerList from './components/TrackerList/TrackerList';
 import CreateTracker from './components/CreateTracker/CreateTracker';
@@ -10,11 +11,13 @@ export default function App() {
     habitsStore.setCurrentDate();
   }, []);
   return (
-    <Layout>
-      <Modal />
-      <h1>Habits</h1>
-      <CreateTracker />
-      <TrackerList />
-    </Layout>
+    <RecoilRoot>
+      <Layout>
+        <Modal />
+        <h1>Habits</h1>
+        <CreateTracker />
+        <TrackerList />
+      </Layout>
+    </RecoilRoot>
   );
 }
