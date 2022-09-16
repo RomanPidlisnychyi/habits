@@ -16,12 +16,11 @@ export default function CreateTracker() {
   };
 
   const handlerSetNumberOfDays = ({ target: { value } }) => {
-    let intValue = parseInt(value);
-    if (intValue || value === '') {
-      if (intValue && intValue < 0) {
-        intValue = -intValue;
-      }
+    const intValue = Math.abs(parseInt(value));
+    if (intValue) {
       setNumberOfDays(`${intValue}`);
+    } else {
+      setNumberOfDays('');
     }
   };
 

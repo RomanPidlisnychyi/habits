@@ -1,24 +1,23 @@
-import { useEffect, useState } from 'react';
-import { getModal, habitsStore } from '../../store';
+import { useRecoilState } from 'recoil';
+import { habitsState, modalState, initModal } from '../../recoil';
 
 export default function Modal() {
-  const [state, setState] = useState(habitsStore.state.modal);
-  const handleState = (state) => {
-    const modal = getModal(state);
-    setState(modal);
-  };
-  useEffect(() => {
-    habitsStore.subscribe(handleState);
-  }, []);
+  const [modal, setModal] = useRecoilState(modalState);
+  const [_, setHabits] = useRecoilState(habitsState);
+
   const handleClick = (event) => {
     if (event === 'No') {
-      return habitsStore.resetModel();
+      return setModal(initModal);
     }
-    habitsStore.removeTracker(state.habitId);
-    habitsStore.resetModel();
+    setHabits((habits) => {
+      const newState = habits.filter((habit) => habit.id !== modal.habitId);
+      localStorage.setItem('habits', JSON.stringify(newState));
+      return newState;
+    });
+    setModal(initModal);
   };
 
-  return state?.isActive ? (
+  return modal?.isActive ? (
     <div
       style={{
         position: 'absolute',

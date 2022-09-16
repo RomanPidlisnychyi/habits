@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styles from './ButtonControl.module.css';
-import { getModal, habitsStore } from '../../store';
+import { modalState } from '../../recoil';
 
-export default function ButtonControl({ tracker }) {
-  const { id } = tracker;
+export default function ButtonControl({ tracker: { id } }) {
+  const [modal, setModal] = useRecoilState(modalState);
+
   // const [isShowModal, setIsShowModal] = useState(false);
   // //!TODO make with 2 callbacks
   // //!TODO modal yes/no
@@ -17,9 +18,9 @@ export default function ButtonControl({ tracker }) {
   // }, []);
 
   const handleRemove = () => {
-    // setIsShowModal(true);
-    // habitsStore.removeTracker(id)
-    habitsStore.setModel({ habitId: id, isActive: true });
+    console.log('Hello');
+    setModal({ habitId: id, isActive: true });
+    // habitsStore.setModel({ habitId: id, isActive: true });
   };
   return (
     <div className={styles.wrap}>
